@@ -1,4 +1,4 @@
-package com.example.focusmate
+package com.example.leveluptasks
 
 import org.junit.Test
 

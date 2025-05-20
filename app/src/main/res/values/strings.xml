@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">FocusMate</string>
+    <string name="app_name">LevelUpTasks</string>
+    <string name="top_bar_name">LevelUp Tasks</string>
+    <string name="home">Home</string>
+    <string name="add_task">Add Task</string>
+    <string name="edit_task">Edit Task</string>
+    <string name="task_details">Task Details</string>
+    <string name="focus">Focus</string>
+    <string name="back_button">Back</string>
+
 </resources>

@@ -1,40 +1,31 @@
-package com.example.focusmate
+package com.example.leveluptasks.presentation
 
-import com.example.focusmate.ui.NewTask
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.focusmate.ui.theme.FocusMateTheme
+import com.example.compose.AppTheme
+
+//import com.example.focusmate.ui.theme.FocusMateTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            FocusMateTheme {
-                NewTask()
+            AppTheme {
+                LevelUpTasksApp()
             }
         }
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-    FocusMateTheme {
-        Greeting("Android")
+    AppTheme {
+
     }
 }

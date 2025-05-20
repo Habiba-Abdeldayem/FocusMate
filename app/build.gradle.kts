@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.focusmate"
+    namespace = "com.example.leveluptasks"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.focusmate"
+        applicationId = "com.example.leveluptasks"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -61,6 +61,11 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.ui.text.google.fonts)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.datastore.preferences)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
