@@ -28,7 +28,6 @@ import com.example.leveluptasks.navigation.LevelUpTasksScreen
 import com.example.leveluptasks.ui.home.TasksViewModel
 import com.example.leveluptasks.ui.settings.SettingsViewModel
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LevelUpAppBar(
