@@ -7,16 +7,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class AllTasksViewModel: ViewModel() {
-    private val _uiState = MutableStateFlow(AllTasksUiState())
-    val uiState: StateFlow<AllTasksUiState> = _uiState
+class TasksViewModel: ViewModel() {
+    private val _uiState = MutableStateFlow(TasksUiState())
+    val uiState: StateFlow<TasksUiState> = _uiState
     val tasksCount:Int
         get() = _uiState.value.tasksList.size
 
     init {
-        _uiState.value = AllTasksUiState(DataSource.fakeTasks)
+        _uiState.value = TasksUiState(DataSource.fakeTasks)
     }
 
+// ⚠️ Important:
+// In Jetpack Compose, the UI only recomposes when the state reference changes.
+// So we avoid using mutable lists directly and instead create a new list using `.copy()`
+// to trigger recomposition when updating the state (e.g., tasksList + newTask).
     fun addTask(name: String) {
         val newTask = Task(name=name, isDone =  false)
         _uiState.update {

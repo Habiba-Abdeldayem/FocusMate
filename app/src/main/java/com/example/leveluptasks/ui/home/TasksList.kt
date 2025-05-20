@@ -1,12 +1,9 @@
-package com.example.leveluptasks.ui
+package com.example.leveluptasks.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -30,27 +27,26 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.leveluptasks.data.model.Task
 import com.example.leveluptasks.ui.components.AlertDialogue
-import com.example.leveluptasks.ui.home.AllTasksViewModel
 
 @Composable
-fun TasksList(allTasksViewModel: AllTasksViewModel, modifier: Modifier = Modifier) {
+fun TasksList(tasksViewModel: TasksViewModel, modifier: Modifier = Modifier) {
 
-    val taskUiState = allTasksViewModel.uiState.collectAsState().value
-//    var showDialog by remember{ mutableStateOf(true) }
+    val taskUiState by tasksViewModel.uiState.collectAsState()
     var taskBeingEdited by rememberSaveable { mutableStateOf<Task?>(null) }
     LazyColumn(
-        modifier=modifier.fillMaxSize(),
+        modifier = modifier,
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
-        items(taskUiState.tasksList, key = {it.taskId}){
-                task -> TaskCard(task= task, viewModel = allTasksViewModel, onEdit = {taskBeingEdited=it})
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        items(taskUiState.tasksList, key = { it.taskId }) { task ->
+            TaskCard(task = task, viewModel = tasksViewModel, onEdit = { taskBeingEdited = it })
         }
     }
 
     taskBeingEdited?.let {
         AlertDialogue(
             task = it,
-            allTasksViewModel = allTasksViewModel,
+            allTasksViewModel = tasksViewModel,
             onSave = { taskBeingEdited = null },
             onCancel = { taskBeingEdited = null },
             onDismissRequest = { taskBeingEdited = null },
@@ -60,25 +56,32 @@ fun TasksList(allTasksViewModel: AllTasksViewModel, modifier: Modifier = Modifie
 }
 
 @Composable
-fun TaskCard(task: Task, viewModel: AllTasksViewModel, onEdit: (Task)->Unit, modifier: Modifier=Modifier) {
+fun TaskCard(
+    task: Task,
+    viewModel: TasksViewModel,
+    onEdit: (Task) -> Unit,
+    modifier: Modifier = Modifier
+) {
 
-    Card(modifier = modifier.padding(8.dp).fillMaxWidth()) {
+    Card(modifier = modifier
+        .padding(8.dp)
+        .fillMaxWidth()) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.padding(8.dp)
-        ){
-            Text(text = task.name,modifier = Modifier.weight(1f))
+        ) {
+            Text(text = task.name, modifier = Modifier.weight(1f))
 //            Spacer(Modifier.width(40.dp))
             Checkbox(
                 checked = task.isDone,
-                onCheckedChange = {viewModel.toggleTask(task)},
+                onCheckedChange = { viewModel.toggleTask(task) },
 
-            )
-            IconButton(onClick = {onEdit(task)}) {
+                )
+            IconButton(onClick = { onEdit(task) }) {
                 Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Task")
             }
-            IconButton(onClick = {viewModel.removeTask(task = task)}) {
+            IconButton(onClick = { viewModel.removeTask(task = task) }) {
                 Icon(imageVector = Icons.Filled.Clear, contentDescription = null)
             }
 
@@ -89,6 +92,6 @@ fun TaskCard(task: Task, viewModel: AllTasksViewModel, onEdit: (Task)->Unit, mod
 @Preview(showBackground = true)
 @Composable
 fun TasksListPreview() {
-    val viewModel : AllTasksViewModel = viewModel()
+    val viewModel: TasksViewModel = viewModel()
     TasksList(viewModel)
 }

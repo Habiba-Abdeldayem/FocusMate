@@ -12,7 +12,7 @@ private const val DARK_MODE_PREFERENCES_NAME = "settings_preferences"
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
     name = DARK_MODE_PREFERENCES_NAME
 )
-class FocusMateApplication:Application() {
+class LevelUpApplication:Application() {
     lateinit var settingsRepository: SettingsRepository
 
     override fun onCreate() {

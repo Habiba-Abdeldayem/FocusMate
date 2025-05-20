@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.leveluptasks.FocusMateApplication
+import com.example.leveluptasks.LevelUpApplication
 import com.example.leveluptasks.data.repository.SettingsRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +14,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-data class SettingsUiState (
+data class SettingsUiState(
 //    val userSettings: UserSettings = UserSettings(isDarkMode = false, onboardingSeen = false)
     val isDarkMode: Boolean = false,
     val onboardingSeen: Boolean = false
@@ -22,10 +22,10 @@ data class SettingsUiState (
 
 class SettingsViewModel(
     private val userSettingsRepository: SettingsRepository
-):ViewModel() {
+) : ViewModel() {
     val uiState: StateFlow<SettingsUiState> =
-        userSettingsRepository.isDarkMode.map { isDarkMode->
-            SettingsUiState(isDarkMode=isDarkMode)
+        userSettingsRepository.isDarkMode.map { isDarkMode ->
+            SettingsUiState(isDarkMode = isDarkMode)
         }
             .stateIn(
                 scope = viewModelScope,
@@ -33,15 +33,16 @@ class SettingsViewModel(
                 initialValue = SettingsUiState()
             )
 
-    fun switchDarkMode(isDarkMode:Boolean) {
+    fun switchDarkMode(isDarkMode: Boolean) {
         viewModelScope.launch {
             userSettingsRepository.saveModePreferences(isDarkMode)
         }
     }
-    companion object{
-        val Factory:ViewModelProvider.Factory = viewModelFactory {
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                val application = (this[APPLICATION_KEY] as FocusMateApplication)
+                val application = (this[APPLICATION_KEY] as LevelUpApplication)
                 SettingsViewModel(application.settingsRepository)
             }
         }

@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.leveluptasks.data.model.Task
-import com.example.leveluptasks.ui.home.AllTasksViewModel
+import com.example.leveluptasks.ui.home.TasksViewModel
 
 @Composable
 fun AlertDialogue(
     onDismissRequest: () -> Unit,
     task: Task,
-    allTasksViewModel: AllTasksViewModel,
+    allTasksViewModel: TasksViewModel,
     onSave: () -> Unit,
     onCancel: () -> Unit,
     modifier: Modifier = Modifier
