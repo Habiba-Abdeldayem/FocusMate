@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.leveluptasks.R
 import com.example.leveluptasks.ui.addtask.AddTaskScreen
+import com.example.leveluptasks.ui.addtask.AddTaskViewModel
 import com.example.leveluptasks.ui.home.TasksViewModel
 import com.example.leveluptasks.ui.home.HomeScreen
 
@@ -27,6 +28,7 @@ enum class LevelUpTasksScreen(@StringRes val title: Int) {
 fun AppNavGraph(
     navController: NavHostController,
     tasksViewModel: TasksViewModel,
+    addTaskViewModel: AddTaskViewModel,
     modifier: Modifier = Modifier
 ) {
 
@@ -43,9 +45,9 @@ fun AppNavGraph(
         }
         composable(route = LevelUpTasksScreen.AddTask.name) {
             AddTaskScreen(
-                tasksViewModel = tasksViewModel,
+                addTaskViewModel = addTaskViewModel,
                 navController = navController,
-                onTaskAdded = {navController.navigate(LevelUpTasksScreen.Home.name)}
+                onSaveTask = {navController.navigate(LevelUpTasksScreen.Home.name)}
             )
         }
     }

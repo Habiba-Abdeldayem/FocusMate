@@ -5,10 +5,13 @@
     <string name="add_task">Add Task</string>
     <string name="edit_task">Edit Task</string>
     <string name="task_details">Task Details</string>
+    <string name="task_description">Task Description</string>
     <string name="focus">Focus</string>
     <string name="back_button">Back</string>
+    <string name="save_button">Save</string>
     <string name="task_name">Task Name</string>
     <string name="description">Description</string>
     <string name="toggle_dark_mode">Toggle Dark Mode</string>
+    <string name="select_due_date">Select due date</string>
 
 </resources>

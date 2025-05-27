@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.leveluptasks.R
 import com.example.leveluptasks.navigation.AppNavGraph
 import com.example.leveluptasks.navigation.LevelUpTasksScreen
+import com.example.leveluptasks.ui.addtask.AddTaskViewModel
 import com.example.leveluptasks.ui.home.TasksViewModel
 import com.example.leveluptasks.ui.settings.SettingsViewModel
 
@@ -68,7 +69,8 @@ fun LevelUpAppBar(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LevelUpTasksApp(
-    tasksViewModel: TasksViewModel = viewModel(),
+    tasksViewModel: TasksViewModel,
+    addTaskViewModel: AddTaskViewModel,
     settingsViewModel: SettingsViewModel,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -93,6 +95,7 @@ fun LevelUpTasksApp(
         AppNavGraph(
             navController = navController,
             tasksViewModel = tasksViewModel,
+            addTaskViewModel = addTaskViewModel,
             modifier = Modifier.padding(innerPadding)
         )
 

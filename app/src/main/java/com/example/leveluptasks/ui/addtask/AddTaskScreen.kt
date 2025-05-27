@@ -1,59 +1,46 @@
 package com.example.leveluptasks.ui.addtask
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.leveluptasks.R
-import com.example.leveluptasks.ui.home.TasksViewModel
+import com.example.leveluptasks.navigation.LevelUpTasksScreen
+import com.example.leveluptasks.ui.components.TaskDetailsScreen
 
 @Composable
 fun AddTaskScreen(
-    tasksViewModel: TasksViewModel,
-    onTaskAdded: () -> Unit,
+    addTaskViewModel: AddTaskViewModel,
+    onSaveTask: () -> Unit,
     navController: NavController
 ) {
-    var text by remember { mutableStateOf("") }
+    val addTaskUiState by addTaskViewModel.addTaskUiState.collectAsState()
 
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    )
-    {
-        TextField(
-            placeholder = { stringResource(R.string.task_name) },
-            value = text,
-            onValueChange = { text = it },
-        )
-        Button(
-            onClick = {
-                tasksViewModel.addTask(text)
-                onTaskAdded()
-            },
-            modifier = Modifier.padding(8.dp)
-
-        ) { Text(stringResource(R.string.add_task)) }
+    LaunchedEffect(addTaskUiState.isTaskSaved) {
+        if(addTaskUiState.isTaskSaved) {
+            navController.navigate(LevelUpTasksScreen.Home.name)
+            addTaskViewModel.clearAddTaskUiState()
+        }
     }
+    TaskDetailsScreen(
+        uiState = addTaskUiState,
+        onTaskNameChange = {addTaskViewModel.onTaskNameChange(it)},
+        onTaskDateChange = {
+            addTaskViewModel.onTaskDueDateChange(it)
+        },
+        onTaskDescriptionChange = {
+            addTaskViewModel.onTaskDescriptionChange(it)
+        },
+        onTaskSave = {
+            addTaskViewModel.saveTask()
+        }
+    )
 }
 
 
 @Preview(showBackground = true)
 @Composable
 fun NewTaskPreview() {
-//    NewTask()
+
 }

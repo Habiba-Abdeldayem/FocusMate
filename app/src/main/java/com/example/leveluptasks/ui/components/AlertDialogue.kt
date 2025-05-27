@@ -36,7 +36,7 @@ fun AlertDialogue(
         Button(
             onClick = {
                 onSave()
-                allTasksViewModel.editTaskInfo(updatedTask = task, newTaskName = taskName)
+                allTasksViewModel.editTaskInfo(updatedTask = task)
             }
         ) {
             Text(text = "Save")

@@ -9,6 +9,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
+import com.example.leveluptasks.data.repository.TaskRepositoryImpl
+import com.example.leveluptasks.ui.TasksViewModelFactory
+import com.example.leveluptasks.ui.addtask.AddTaskViewModel
+import com.example.leveluptasks.ui.home.TasksViewModel
 import com.example.leveluptasks.ui.settings.SettingsViewModel
 
 //import com.example.focusmate.ui.theme.FocusMateTheme
@@ -18,10 +22,17 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+            val taskRepository = TaskRepositoryImpl()
+            val factory = TasksViewModelFactory(taskRepository)
+            val tasksViewModel: TasksViewModel = viewModel(factory = factory)
+            val addTaskViewModel: AddTaskViewModel = viewModel(factory = factory)
             val settingsViewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory)
             val isDarkMode = settingsViewModel.uiState.collectAsState()
             AppTheme(darkTheme = isDarkMode.value.isDarkMode) {
-                LevelUpTasksApp(settingsViewModel = settingsViewModel)
+                LevelUpTasksApp(
+                    tasksViewModel = tasksViewModel,
+                    addTaskViewModel = addTaskViewModel,
+                    settingsViewModel = settingsViewModel)
             }
         }
     }

@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -29,7 +30,11 @@ import com.example.leveluptasks.data.model.Task
 import com.example.leveluptasks.ui.components.AlertDialogue
 
 @Composable
-fun TasksList(tasksViewModel: TasksViewModel, modifier: Modifier = Modifier) {
+fun TasksList(
+    tasksViewModel: TasksViewModel,
+    onAddTaskClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
 
     val taskUiState by tasksViewModel.uiState.collectAsState()
     var taskBeingEdited by rememberSaveable { mutableStateOf<Task?>(null) }
@@ -41,6 +46,10 @@ fun TasksList(tasksViewModel: TasksViewModel, modifier: Modifier = Modifier) {
         items(taskUiState.tasksList, key = { it.taskId }) { task ->
             TaskCard(task = task, viewModel = tasksViewModel, onEdit = { taskBeingEdited = it })
         }
+        item{
+            Button(onClick = onAddTaskClick) { Text(text = "add task") }
+        }
+
     }
 
     taskBeingEdited?.let {
@@ -92,6 +101,6 @@ fun TaskCard(
 @Preview(showBackground = true)
 @Composable
 fun TasksListPreview() {
-    val viewModel: TasksViewModel = viewModel()
-    TasksList(viewModel)
+//    val viewModel: TasksViewModel = viewModel()
+//    TasksList(viewModel)
 }
