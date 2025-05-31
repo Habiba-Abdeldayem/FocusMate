@@ -1,8 +1,7 @@
 package com.example.leveluptasks.ui.state
 
+import com.example.leveluptasks.data.model.Task
+
 interface TaskUiStateBase {
-    val taskName: String
-    val taskDescription: String
-    val dueDate: Long?
-    val isDone: Boolean
+    val task: Task
 }

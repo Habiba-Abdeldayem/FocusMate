@@ -8,9 +8,16 @@ import kotlinx.coroutines.flow.StateFlow
 class TaskRepositoryImpl: TaskRepository {
     private val dataSourceTasks = DataSource.fakeTasks
     private val tasks = MutableStateFlow<List<Task>>(dataSourceTasks)
+    private val currentTaskFlow = MutableStateFlow<Task?> (null)
 
     override suspend fun getAllTasks(): StateFlow<List<Task>> {
         return tasks
+    }
+
+    override suspend fun getTask(taskId: String): StateFlow<Task?> {
+       val task = tasks.value.find{it.taskId == taskId}
+        currentTaskFlow.value = task
+        return currentTaskFlow
     }
 
     override suspend fun addTask(task: Task) {

@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface TaskRepository {
     suspend fun getAllTasks(): StateFlow<List<Task>>
+    suspend fun getTask(taskId: String): StateFlow<Task?>
     suspend fun addTask(task:Task)
     suspend fun removeTask(task:Task)
     suspend fun updateTask(updatedTask:Task)

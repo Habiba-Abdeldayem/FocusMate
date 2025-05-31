@@ -33,6 +33,7 @@ import com.example.leveluptasks.ui.components.AlertDialogue
 fun TasksList(
     tasksViewModel: TasksViewModel,
     onAddTaskClick: () -> Unit,
+    onTaskEditClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -44,7 +45,10 @@ fun TasksList(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(taskUiState.tasksList, key = { it.taskId }) { task ->
-            TaskCard(task = task, viewModel = tasksViewModel, onEdit = { taskBeingEdited = it })
+            TaskCard(
+                task = task, viewModel = tasksViewModel,
+                onEdit = { onTaskEditClick(it.taskId) }
+            )
         }
         item{
             Button(onClick = onAddTaskClick) { Text(text = "add task") }

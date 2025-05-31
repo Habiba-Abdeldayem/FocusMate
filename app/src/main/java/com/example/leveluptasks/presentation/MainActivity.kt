@@ -12,6 +12,7 @@ import com.example.compose.AppTheme
 import com.example.leveluptasks.data.repository.TaskRepositoryImpl
 import com.example.leveluptasks.ui.TasksViewModelFactory
 import com.example.leveluptasks.ui.addtask.AddTaskViewModel
+import com.example.leveluptasks.ui.editTaskDetails.EditTaskDetailsViewModel
 import com.example.leveluptasks.ui.home.TasksViewModel
 import com.example.leveluptasks.ui.settings.SettingsViewModel
 
@@ -26,12 +27,14 @@ class MainActivity : ComponentActivity() {
             val factory = TasksViewModelFactory(taskRepository)
             val tasksViewModel: TasksViewModel = viewModel(factory = factory)
             val addTaskViewModel: AddTaskViewModel = viewModel(factory = factory)
+            val editTaskDetailsViewModel: EditTaskDetailsViewModel = viewModel(factory = factory)
             val settingsViewModel: SettingsViewModel = viewModel(factory = SettingsViewModel.Factory)
             val isDarkMode = settingsViewModel.uiState.collectAsState()
             AppTheme(darkTheme = isDarkMode.value.isDarkMode) {
                 LevelUpTasksApp(
                     tasksViewModel = tasksViewModel,
                     addTaskViewModel = addTaskViewModel,
+                    editTaskDetailsViewModel = editTaskDetailsViewModel,
                     settingsViewModel = settingsViewModel)
             }
         }

@@ -15,7 +15,7 @@ fun AddTaskScreen(
     onSaveTask: () -> Unit,
     navController: NavController
 ) {
-    val addTaskUiState by addTaskViewModel.addTaskUiState.collectAsState()
+    val addTaskUiState by addTaskViewModel.taskUiState.collectAsState()
 
     LaunchedEffect(addTaskUiState.isTaskSaved) {
         if(addTaskUiState.isTaskSaved) {
@@ -27,7 +27,7 @@ fun AddTaskScreen(
         uiState = addTaskUiState,
         onTaskNameChange = {addTaskViewModel.onTaskNameChange(it)},
         onTaskDateChange = {
-            addTaskViewModel.onTaskDueDateChange(it)
+            addTaskViewModel.onTaskDateChange(it)
         },
         onTaskDescriptionChange = {
             addTaskViewModel.onTaskDescriptionChange(it)

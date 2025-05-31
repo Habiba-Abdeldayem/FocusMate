@@ -10,11 +10,13 @@ import com.example.compose.AppTheme
 fun HomeScreen(
     viewModel: TasksViewModel,
     onAddTaskClick: () -> Unit,
+    onTaskEditClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         TasksList(
             tasksViewModel = viewModel,
+            onTaskEditClick = onTaskEditClick,
             onAddTaskClick = onAddTaskClick
         )
     }

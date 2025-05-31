@@ -26,6 +26,7 @@ import com.example.leveluptasks.R
 import com.example.leveluptasks.navigation.AppNavGraph
 import com.example.leveluptasks.navigation.LevelUpTasksScreen
 import com.example.leveluptasks.ui.addtask.AddTaskViewModel
+import com.example.leveluptasks.ui.editTaskDetails.EditTaskDetailsViewModel
 import com.example.leveluptasks.ui.home.TasksViewModel
 import com.example.leveluptasks.ui.settings.SettingsViewModel
 
@@ -71,6 +72,7 @@ fun LevelUpAppBar(
 fun LevelUpTasksApp(
     tasksViewModel: TasksViewModel,
     addTaskViewModel: AddTaskViewModel,
+    editTaskDetailsViewModel: EditTaskDetailsViewModel,
     settingsViewModel: SettingsViewModel,
     navController: NavHostController = rememberNavController(),
 ) {
@@ -96,6 +98,7 @@ fun LevelUpTasksApp(
             navController = navController,
             tasksViewModel = tasksViewModel,
             addTaskViewModel = addTaskViewModel,
+            editTaskDetailsViewModel = editTaskDetailsViewModel,
             modifier = Modifier.padding(innerPadding)
         )
 

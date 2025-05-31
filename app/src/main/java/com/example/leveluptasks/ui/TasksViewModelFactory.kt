@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.leveluptasks.data.repository.TaskRepository
 import com.example.leveluptasks.ui.addtask.AddTaskViewModel
+import com.example.leveluptasks.ui.editTaskDetails.EditTaskDetailsViewModel
 import com.example.leveluptasks.ui.home.TasksViewModel
 
 class TasksViewModelFactory(private val repository: TaskRepository)
@@ -14,6 +15,8 @@ class TasksViewModelFactory(private val repository: TaskRepository)
                 TasksViewModel(repository) as T
             modelClass.isAssignableFrom(AddTaskViewModel::class.java) ->
                 AddTaskViewModel(repository) as T
+            modelClass.isAssignableFrom(EditTaskDetailsViewModel::class.java) ->
+                EditTaskDetailsViewModel(repository) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }
 

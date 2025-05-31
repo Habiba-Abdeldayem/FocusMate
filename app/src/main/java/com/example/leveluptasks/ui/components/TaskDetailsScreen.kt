@@ -40,7 +40,7 @@ fun TaskDetailsScreen(
     ) {
         Column(modifier = modifier.fillMaxSize()) {
             OutlinedTextField(
-                value = uiState.taskName,
+                value = uiState.task.name,
                 onValueChange = { onTaskNameChange(it) },
                 placeholder = { Text(text = stringResource(R.string.task_name)) },
                 textStyle = MaterialTheme.typography.headlineLarge,
@@ -53,7 +53,7 @@ fun TaskDetailsScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             DatePickerField(
-                dueDate = uiState.dueDate,
+                dueDate = uiState.task.dueDate,
                 onDateSelected = { onTaskDateChange(it) },
             )
 
@@ -61,7 +61,7 @@ fun TaskDetailsScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
             OutlinedTextField(
-                value = uiState.taskDescription,
+                value = uiState.task.description,
                 onValueChange = { onTaskDescriptionChange(it) },
                 placeholder = { Text(text = stringResource(R.string.task_description)) },
                 textStyle = MaterialTheme.typography.bodyLarge,
